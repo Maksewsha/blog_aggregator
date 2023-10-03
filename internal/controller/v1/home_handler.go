@@ -1,12 +1,16 @@
 package v1
 
-type homeHandler struct {
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+func newHomeHandlers(sg *gin.RouterGroup) {
+	sg.GET("/", homePage)
 }
 
-func NewHomeHandler() *homeHandler {
-	return &homeHandler{}
-}
-
-func (*homeHandler) homePage() {
-
+func homePage(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hello at home page!",
+	})
 }
