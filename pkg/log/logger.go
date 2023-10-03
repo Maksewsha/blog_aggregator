@@ -24,7 +24,8 @@ const (
 )
 
 func NewAppLogger() MyLogger {
-	file, err := os.OpenFile("logs.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0x0666)
+	err := os.Chmod("logs.txt", 0777)
+	file, err := os.OpenFile("logs.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0777)
 	if err != nil {
 		log.Fatal(err)
 	}

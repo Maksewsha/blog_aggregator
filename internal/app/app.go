@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/maksewsha/blog_aggregator/config"
 	"github.com/maksewsha/blog_aggregator/internal/controller/v1"
@@ -14,7 +15,7 @@ type app struct {
 }
 
 func NewApp(cfg *config.Config, logger log.MyLogger) *app {
-	router := v1.NewRouter()
+	router := v1.NewRouter(logger)
 
 	return &app{
 		config: cfg,
@@ -26,6 +27,6 @@ func NewApp(cfg *config.Config, logger log.MyLogger) *app {
 func (a *app) Start() {
 	err := a.router.Run(a.config.HOST + ":" + a.config.PORT)
 	if err != nil {
-		a.logger.Error(err.Error())
+		a.logger.Error(fmt.Sprintf("Unable to start app. Reason: %s", err.Error()))
 	}
 }
